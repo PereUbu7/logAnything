@@ -11,6 +11,12 @@ let NewLogPostViewModel = function() {
     self.liter = ko.observable();
     self.kronor = ko.observable();
 
+    self.resetInputs = function () {
+        self.km(null);
+        self.liter(null);
+        self.kronor(null);
+    }
+
     self.loadData = function () {
         $.getJSON(window.urlApi + "?keys=true", function (allData) {
             let mappedKeys = $.map(allData, function (item) { return item; });
@@ -30,6 +36,7 @@ let NewLogPostViewModel = function() {
 
         $.getJSON(window.urlApi + "?log=true&key=" + self.valdBil() + "&value=" + ko.toJSON(v), function () {
             self.loadData();
+            self.resetInputs();
         });
     }; 
 

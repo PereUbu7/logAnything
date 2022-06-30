@@ -86,7 +86,7 @@ let ViewLogPostViewModel = function() {
 
     self.kronorPerKmText = ko.computed(function() {
         if(self.totalKm() != 0)
-            return 10*self.summaKronor()/self.totalKm() + "kr/mil";
+            return 10*self.summaKronor()/self.totalKm() + " kr/mil";
     })
 
     self.loadData = function () {
