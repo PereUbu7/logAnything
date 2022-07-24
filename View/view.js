@@ -132,14 +132,11 @@ let ViewLogPostViewModel = function() {
 
         for(var index = 1; index < logList.length; ++index) {
             var dMil = (logList[index].km - logList[index - 1].km) / 10;
-            console.log("dMil: " + dMil);
+            
             if(dMil == 0) { continue; }
 
             var dKr = logList[index - 1].kronor;
             var dliter = logList[index - 1].liter;
-
-            console.log("dKr: " + dKr);
-            console.log("dliter: " + dliter);
 
             logList[index].dMil = dMil
             logList[index].dKrdMil = (dKr / dMil).toFixed(2);
