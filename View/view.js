@@ -84,13 +84,17 @@ let ViewLogPostViewModel = function() {
     });
 
     self.literPerKmText = ko.computed(function() {
-        if(self.totalKm() != 0)
-            return (10*self.summaLiter()/self.totalKm()).toFixed(2) + " liter/mil";
+        if(self.totalKm() != 0) {
+            var lastLiter = self.logs()[self.logs().length - 1].liter;
+            return (10*(self.summaLiter() - lastLiter)/self.totalKm()).toFixed(2) + " liter/mil";
+        }
     });
 
     self.kronorPerKmText = ko.computed(function() {
-        if(self.totalKm() != 0)
-            return (10*self.summaKronor()/self.totalKm()).toFixed(2) + " kr/mil";
+        if(self.totalKm() != 0) { 
+            var lastKronor = self.logs()[self.logs().length - 1].kronor;
+            return (10*(self.summaKronor() - lastKronor)/self.totalKm()).toFixed(2) + " kr/mil";
+        }
     })
 
     self.loadData = function () {
@@ -128,11 +132,15 @@ let ViewLogPostViewModel = function() {
 
         for(var index = 1; index < logList.length; ++index) {
             var dMil = (logList[index].km - logList[index - 1].km) / 10;
-
+            console.log("dMil: " + dMil);
             if(dMil == 0) { continue; }
 
-            var dKr = logList[index].kronor;
-            var dliter = logList[index].liter;
+            var dKr = logList[index - 1].kronor;
+            var dliter = logList[index - 1].liter;
+
+            console.log("dKr: " + dKr);
+            console.log("dliter: " + dliter);
+
             logList[index].dMil = dMil
             logList[index].dKrdMil = (dKr / dMil).toFixed(2);
             logList[index].dldMil = (dliter / dMil).toFixed(2);
