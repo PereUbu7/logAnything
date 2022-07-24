@@ -1,10 +1,14 @@
 function LogPost(id, data) {
     let self = this;
     self.id = id;
-    self.tidsstämpel = data.date;
+    self.tidsstämpel = data.date.substring(0, 10);
     self.km = data.km;
     self.liter = data.liter;
     self.kronor = data.kronor;
+
+    self.dMil = null;
+    self.dKrdMil = null;
+    self.dldMil = null;
 }
 
 let ViewLogPostViewModel = function() {
@@ -81,12 +85,12 @@ let ViewLogPostViewModel = function() {
 
     self.literPerKmText = ko.computed(function() {
         if(self.totalKm() != 0)
-            return 10*self.summaLiter()/self.totalKm() + " liter/mil";
+            return (10*self.summaLiter()/self.totalKm()).toFixed(2) + " liter/mil";
     });
 
     self.kronorPerKmText = ko.computed(function() {
         if(self.totalKm() != 0)
-            return 10*self.summaKronor()/self.totalKm() + " kr/mil";
+            return (10*self.summaKronor()/self.totalKm()).toFixed(2) + " kr/mil";
     })
 
     self.loadData = function () {
@@ -108,9 +112,33 @@ let ViewLogPostViewModel = function() {
                     return new LogPost(item.id, {tidstämpel: "", liter:0, kronor:0, km:0}); 
                 }
             });
-            
-            self.logs(mappedLogs);
+
+            mappedLogs.sort((a, b) => {
+                return a.tidsstämpel > b.tidsstämpel;
+            })
+
+            self.logs(self.calculateListAggregations(mappedLogs));
         });
+    }
+
+    self.calculateListAggregations = (logList) => {
+        if(logList.length < 2) {
+            return logList;
+        }
+
+        for(var index = 1; index < logList.length; ++index) {
+            var dMil = (logList[index].km - logList[index - 1].km) / 10;
+
+            if(dMil == 0) { continue; }
+
+            var dKr = logList[index].kronor;
+            var dliter = logList[index].liter;
+            logList[index].dMil = dMil
+            logList[index].dKrdMil = (dKr / dMil).toFixed(2);
+            logList[index].dldMil = (dliter / dMil).toFixed(2);
+        }
+
+        return logList;
     }
 
     self.removeLogPost = (item) => { 

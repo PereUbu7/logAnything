@@ -54,6 +54,9 @@
                             <th>Km</th>
                             <th>Liter</th>
                             <th>Kronor</th>
+                            <th>dMil</th>
+                            <th>dKr/dMil</th>
+                            <th>dl/dMil</th>
                         </tr>
                     </thead>
                     <tbody data-bind="foreach: { data: filteredLogs, includeDestroyed: false } ">
@@ -80,6 +83,21 @@
 							<td>
 								<div>
 									<p data-bind="text: kronor"></p>
+								</div>
+							</td>
+							<td>
+								<div>
+									<p data-bind="text: dMil"></p>
+								</div>
+							</td>
+							<td>
+								<div>
+									<p data-bind="text: dKrdMil"></p>
+								</div>
+							</td>
+							<td>
+								<div>
+									<p data-bind="text: dldMil"></p>
 								</div>
 							</td>
 						</tr>
