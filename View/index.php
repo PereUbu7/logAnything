@@ -52,11 +52,14 @@
                             <th></th>
                             <th>Tid</th>
                             <th>Km</th>
+                            <th>Dagar</th>
                             <th>Liter</th>
                             <th>Kronor</th>
                             <th>dMil</th>
-                            <th>dKr/dMil</th>
-                            <th>dl/dMil</th>
+                            <th>Kr/Mil</th>
+                            <th>l/Mil</th>
+                            <th>Kr/Dag</th>
+                            <th>l/Dag</th>
                         </tr>
                     </thead>
                     <tbody data-bind="foreach: { data: filteredLogs, includeDestroyed: false } ">
@@ -73,6 +76,11 @@
 							<td>
 								<div>
 									<p data-bind="text: km"></p>
+								</div>
+							</td>
+							<td>
+								<div>
+									<p data-bind="text: dagar"></p>
 								</div>
 							</td>
 							<td>
@@ -98,6 +106,16 @@
 							<td>
 								<div>
 									<p data-bind="text: dldMil"></p>
+								</div>
+							</td>
+							<td>
+								<div>
+									<p data-bind="text: dKrdDag"></p>
+								</div>
+							</td>
+							<td>
+								<div>
+									<p data-bind="text: dldDag"></p>
 								</div>
 							</td>
 						</tr>

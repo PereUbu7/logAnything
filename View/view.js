@@ -6,9 +6,12 @@ function LogPost(id, data) {
     self.liter = data.liter;
     self.kronor = data.kronor;
 
+    self.dagar = null;
     self.dMil = null;
     self.dKrdMil = null;
     self.dldMil = null;
+    self.dKrdDag = null;
+    self.dldDag = null;
 }
 
 let ViewLogPostViewModel = function() {
@@ -132,15 +135,22 @@ let ViewLogPostViewModel = function() {
 
         for(var index = 1; index < logList.length; ++index) {
             var dMil = (logList[index].km - logList[index - 1].km) / 10;
+
+
+
+            var dagar = Math.ceil(((new Date(logList[index].tidsstämpel)).getTime() - (new Date(logList[index-1].tidsstämpel)).getTime()) / (1000 * 3600 * 24));
             
             if(dMil == 0) { continue; }
 
             var dKr = logList[index - 1].kronor;
             var dliter = logList[index - 1].liter;
 
+            logList[index].dagar = dagar;
             logList[index].dMil = dMil
             logList[index].dKrdMil = (dKr / dMil).toFixed(2);
             logList[index].dldMil = (dliter / dMil).toFixed(2);
+            logList[index].dKrdDag = (dKr / dagar).toFixed(2);
+            logList[index].dldDag = (dliter / dagar).toFixed(2);
         }
 
         return logList;
