@@ -20,6 +20,7 @@ let NewLogPostViewModel = function() {
     self.loadData = function () {
         $.getJSON(window.urlApi + "?keys=true", function (allData) {
             let mappedKeys = $.map(allData, function (item) { return item; });
+            mappedKeys = mappedKeys.filter((name) => { return name != 'pellets'; });
             self.bilar(mappedKeys);
         });
     }
