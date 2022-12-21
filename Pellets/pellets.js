@@ -13,6 +13,9 @@ function LogPost(id, data) {
 let NewLogPostViewModel = function() {
     let self = this;
 
+    self.diagram = document.getElementById("diagram");
+    self.chart = null;
+
     // Log
     self.chosenDate = ko.observable(new Date());
     self.gotDate = ko.observable(self.chosenDate());
@@ -117,6 +120,11 @@ let NewLogPostViewModel = function() {
             })
 
             self.logs(self.calculateListAggregations(mappedLogs));
+
+            self.chart = new Chart(
+                self.diagram,
+                self.createChartConfig()
+            );
         });
     }
 
@@ -136,6 +144,30 @@ let NewLogPostViewModel = function() {
 
         return logList;
     }
+
+    self.createChartConfig = () => {
+        return {
+            type: 'line',
+            data: {
+                labels: self.filteredLogs().map(x => {
+                    return x.tidsstämpel;
+                    let now = new Date(x.tidsstämpel);
+                    let start = new Date(now.getFullYear(), 0 ,0);
+                    let diff = now - start;
+                    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+                }),
+                datasets: [
+                    {
+                        label: 'Pelletsanvändning [säckar/vecka]',
+                        data: self.filteredLogs().map(x => Number(x.säckarPerVecka)),
+                        // backgroundColor: 'rgb(255, 99, 132)',
+                        // borderColor: 'rgb(255, 99, 132)',
+                    }
+                ]
+            }
+        };
+    }
+
 
     self.removeLogPost = (item) => { 
         self.logs.destroy(item);

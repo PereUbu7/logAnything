@@ -11,7 +11,8 @@
 	
 	<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js'></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 	<script src="../scripts.js" type="text/javascript"></script>
 	<script src="pellets.js" defer type="text/javascript"></script>
 
@@ -101,6 +102,9 @@
                 </table>
             </form>
         </section>
+		<div>
+			<canvas id="diagram">Canvas not supported in your browser</canvas>
+		</div>
     </main>
 
 </body>
