@@ -173,7 +173,7 @@ let NewLogPostViewModel = function() {
             type: 'line',
             parsing: false,
             data: {
-                labels: [...Array(356).keys()],
+                labels: [...Array(366).keys()],
                 datasets: Object.values(datasetsobj),
             }
         };
