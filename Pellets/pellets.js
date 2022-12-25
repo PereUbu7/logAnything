@@ -146,24 +146,31 @@ let NewLogPostViewModel = function() {
     }
 
     self.createChartConfig = () => {
+        let datasetsobj = self.filteredLogs().reduce(function (r, a) {
+            let now = new Date(a.tidsstämpel);
+            let year = new Date(a.tidsstämpel).getFullYear();  
+            let start = new Date(now.getFullYear(), 0, 0);
+            let diff = now - start;
+            let dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));      
+            r[year] = r[year] || {};
+            r[year].label = year;
+            r[year].stepped = 'after';
+            r[year].data = r[year].data || [];
+            r[year].data.push({
+                x: dayOfYear,
+                y: Number(a.säckarPerVecka)
+            });
+            return r;
+        }, Object.create(null));
+
+        console.log(Object.values(datasetsobj));
+
         return {
             type: 'line',
+            parsing: false,
             data: {
-                labels: self.filteredLogs().map(x => {
-                    return x.tidsstämpel;
-                    let now = new Date(x.tidsstämpel);
-                    let start = new Date(now.getFullYear(), 0 ,0);
-                    let diff = now - start;
-                    return Math.ceil(diff / (1000 * 60 * 60 * 24));
-                }),
-                datasets: [
-                    {
-                        label: 'Pelletsanvändning [säckar/vecka]',
-                        data: self.filteredLogs().map(x => Number(x.säckarPerVecka)),
-                        // backgroundColor: 'rgb(255, 99, 132)',
-                        // borderColor: 'rgb(255, 99, 132)',
-                    }
-                ]
+                labels: [...Array(356).keys()],
+                datasets: Object.values(datasetsobj),
             }
         };
     }
