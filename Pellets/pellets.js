@@ -146,7 +146,11 @@ let NewLogPostViewModel = function() {
     }
 
     self.createChartConfig = () => {
-        let datasetsobj = self.filteredLogs().reduce(function (r, a) {
+        let datasetsobj = self.filteredLogs()
+            .sort((a,b) => {
+                return a.tidsstämpel > b.tidsstämpel;
+            })
+            .reduce(function (r, a) {
             let now = new Date(a.tidsstämpel);
             let year = new Date(a.tidsstämpel).getFullYear();  
             let start = new Date(now.getFullYear(), 0, 0);
