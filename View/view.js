@@ -143,8 +143,8 @@ let ViewLogPostViewModel = function() {
             
             if(dMil == 0) { continue; }
 
-            var dKr = logList[index - 1].kronor;
-            var dliter = logList[index - 1].liter;
+            var dKr = logList[index].kronor;
+            var dliter = logList[index].liter;
 
             logList[index].dagar = dagar;
             logList[index].dMil = dMil
