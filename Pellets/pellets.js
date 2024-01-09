@@ -114,7 +114,7 @@ let NewLogPostViewModel = function() {
                     return new LogPost(item.id, {tidstämpel: "", antalSäckar: 0}); 
                 }
             });
-
+            
             mappedLogs.sort((a, b) => {
                 return a.tidsstämpel > b.tidsstämpel;
             })

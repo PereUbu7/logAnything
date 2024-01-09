@@ -38,6 +38,26 @@ class DatabaseConnection
 		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		return $res;
 	}
+
+	function GetValuesByKeyAndRange($key, $minRange, $maxRange)
+	{
+		$stmt = $this->dbConnection->prepare( "SELECT
+		id,
+		createdAt,
+		value
+		FROM logAnything
+		WHERE key = ?
+		AND createdAt > ?
+		AND createdAt < ?;");
+		
+		$params = [$key, $minRange, $maxRange];
+		$stmt->execute($params);
+
+		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $res;
+	}
+
+
 	function GetAllKeys()
 	{
 		$stmt = $this->dbConnection->prepare( "SELECT DISTINCT key FROM logAnything");
