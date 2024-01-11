@@ -47,8 +47,8 @@ class DatabaseConnection
 		value
 		FROM logAnything
 		WHERE key = ?
-		AND createdAt > ?
-		AND createdAt < ?;");
+		AND createdAt >= ?
+		AND createdAt <= ?;");
 		
 		$params = [$key, $minRange, $maxRange];
 		$stmt->execute($params);
