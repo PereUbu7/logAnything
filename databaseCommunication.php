@@ -47,10 +47,13 @@ class DatabaseConnection
 		value
 		FROM logAnything
 		WHERE key = ?
-		AND createdAt >= ?
-		AND createdAt <= ?;");
+		AND substr(createdAt, 1, ?) >= ?
+		AND substr(createdAt, 1, ?) <= ?;");
 		
-		$params = [$key, $minRange, $maxRange];
+		$minRangeLength = strlen($minRange);
+		$maxRangeLength = strlen($maxRange);
+
+		$params = [$key, $minRangeLength, $minRange, $maxRangeLength, $maxRange];
 		$stmt->execute($params);
 
 		$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
