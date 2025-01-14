@@ -44,6 +44,9 @@
                 </div>
             </form>
         </section>
+		<div>
+			<canvas id="diagram">Canvas not supported in your browser</canvas>
+		</div>
         <section>
             <form class="form-group mt-5">
                 <input class="form-control form-control-sm mb-3" type="date"
@@ -66,7 +69,7 @@
                             <th>Antal/Vecka</th>
                         </tr>
                     </thead>
-                    <tbody data-bind="foreach: { data: filteredLogs, includeDestroyed: false } ">
+                    <tbody data-bind="foreach: { data: filteredLogs.slice(0).reverse(), includeDestroyed: false } ">
 						<tr>
 							<td>
 								<i class="fa fa-remove removeTableRowButton"
@@ -102,9 +105,6 @@
                 </table>
             </form>
         </section>
-		<div>
-			<canvas id="diagram">Canvas not supported in your browser</canvas>
-		</div>
     </main>
 
 </body>
