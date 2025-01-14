@@ -13,8 +13,8 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-	<script src="../scripts.js" type="text/javascript"></script>
-	<script src="pellets.js" defer type="text/javascript"></script>
+	<script src="../scripts.js?1" type="text/javascript"></script>
+	<script src="pellets.js?1" defer type="text/javascript"></script>
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -69,7 +69,7 @@
                             <th>Antal/Vecka</th>
                         </tr>
                     </thead>
-                    <tbody data-bind="foreach: { data: filteredLogs.slice(0).reverse(), includeDestroyed: false } ">
+                    <tbody data-bind="foreach: { data: filteredLogs().slice(0).reverse(), includeDestroyed: false } ">
 						<tr>
 							<td>
 								<i class="fa fa-remove removeTableRowButton"
